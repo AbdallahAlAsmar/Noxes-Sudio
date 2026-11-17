@@ -6,7 +6,7 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 const LINKS = [
   { href: '/projects', label: 'Projects' },
-  { href: '/prompt', label: 'Prompt Studio' },
+  { href: '/ai-studio', label: 'AI Studio' },
   { href: '/#demo', label: 'How it works' },
   { href: '/#about', label: 'Studio' },
 ];

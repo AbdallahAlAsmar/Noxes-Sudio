@@ -15,6 +15,7 @@ export default function LandingFooter() {
         </Link>
         <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
           <Link href="/projects" className="text-sm font-medium text-[#B6B0A4] hover:text-[#F4F1E9] transition-colors">Projects</Link>
+          <Link href="/ai-studio" className="text-sm font-medium text-[#B6B0A4] hover:text-[#F4F1E9] transition-colors">AI Studio</Link>
           <Link href="/#about" className="text-sm font-medium text-[#B6B0A4] hover:text-[#F4F1E9] transition-colors">About</Link>
           <Link href="/sign-in" className="text-sm font-medium text-[#B6B0A4] hover:text-[#F4F1E9] transition-colors">Sign in</Link>
           <Link href="/sign-up" className="text-sm font-medium text-[#B6B0A4] hover:text-[#F4F1E9] transition-colors">Get started</Link>

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
-import { ArrowRight, Check, Copy, Download, FileText, LoaderCircle, MessageSquarePlus, PanelLeftClose, PanelLeftOpen, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Copy, Download, FileText, LoaderCircle, MessageSquarePlus, PanelLeftClose, PanelLeftOpen, Sparkles } from 'lucide-react';
 import { PromptInput } from '@/components/ui/ai-chat-input';
 
 type FileEntry = { path: string; content: string };
@@ -207,7 +207,10 @@ export default function PromptStudio() {
           <div className="flex items-center gap-4">
             {!sidebarOpen && <button onClick={() => setSidebarOpen(true)} className="flex h-10 w-10 items-center justify-center text-[#B6B0A4] hover:bg-white/[0.05] hover:text-[#F4F1E9]" aria-label="Open history sidebar"><PanelLeftOpen size={18} /></button>}
             <div>
-              <p className="text-sm font-medium">Prompt Studio</p>
+              <Link href="/ai-studio" className="inline-flex items-center gap-1.5 text-xs font-medium text-[#68665F] transition-colors hover:text-[#E83708]">
+                <ArrowLeft aria-hidden="true" size={13} /> AI Studio
+              </Link>
+              <p className="mt-1 text-sm font-medium">Prompt Studio</p>
               <p className="mt-0.5 text-xs text-[#68665F]">Your prompt workspace</p>
             </div>
           </div>
