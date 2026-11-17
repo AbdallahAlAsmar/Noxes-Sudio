@@ -78,3 +78,4 @@ NOX-FiveM-Desktop.exe
 apps/web/public/dist/*
 !apps/web/public/dist/NOXES-Setup.exe
 !apps/web/public/dist/NOXES-Setup.msi
+graphify-out/
