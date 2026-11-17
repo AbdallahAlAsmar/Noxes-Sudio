@@ -1,4 +1,5 @@
 import AboutNoxes from '@/components/landing/AboutNoxesMotion';
+import BrandTicker from '@/components/landing/BrandTicker';
 import Features from '@/components/landing/Features';
 import GetStarted from '@/components/landing/GetStarted';
 import Hero from '@/components/landing/Hero';
@@ -6,19 +7,23 @@ import LandingFooter from '@/components/landing/LandingFooter';
 import LandingNav from '@/components/landing/LandingNav';
 import Projects from '@/components/landing/ProjectsMotion';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { ScrollParallax } from '@/components/landing/ScrollMotion';
 import TerminalDemo from '@/components/landing/TerminalDemo';
+import SignalField from './SignalField';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#111315] text-[#F4F1E9]">
+    <div className="relative isolate min-h-screen bg-[#111315] text-[#F4F1E9]">
+      <SignalField />
       <LandingNav />
-      <main>
+      <main className="relative z-10">
         <Hero />
+        <BrandTicker />
         <Projects />
 
-        <section id="demo" className="border-y border-[#414548] bg-[#181A1D] py-24 md:py-32">
+        <section id="demo" className="border-y border-[#414548] bg-[#181A1D]/82 py-24 md:py-32">
           <ScrollReveal className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:px-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-            <div>
+            <ScrollParallax y={[18, -24]}>
               <p className="brand-eyebrow">Verification First</p>
               <h2 className="brand-display mt-5 text-4xl font-black uppercase tracking-tight text-[#F4F1E9] md:text-6xl">
                 Ask clearly.
@@ -31,8 +36,10 @@ export default function LandingPage() {
               <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#68665F]">
                 No approval, no file change.
               </p>
-            </div>
-            <TerminalDemo />
+            </ScrollParallax>
+            <ScrollParallax y={[34, -34]} rotate={[0.3, -0.3]}>
+              <TerminalDemo />
+            </ScrollParallax>
           </ScrollReveal>
         </section>
 

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowUpRight, Check, GitBranch, ScanSearch } from 'lucide-react';
+import { ScrollParallax } from './ScrollMotion';
 import ScrollReveal from './ScrollReveal';
 
 const highlights = [
@@ -10,22 +11,25 @@ const highlights = [
 
 export default function ProjectsMotion() {
   return (
-    <section id="projects" className="relative overflow-hidden border-t border-[#414548] bg-[#111315] py-28 md:py-40" aria-labelledby="projects-heading">
+    <section id="projects" className="relative overflow-hidden border-t border-[#414548] bg-[#111315]/82 py-28 md:py-40" aria-labelledby="projects-heading">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        <ScrollReveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-3xl">
-            <p className="brand-eyebrow">Studio Portfolio</p>
-            <h2 id="projects-heading" className="brand-display mt-5 text-5xl font-black uppercase tracking-tight text-[#F4F1E9] md:text-7xl">
-              One studio.<br /><span className="text-[#E83708]">Many worlds.</span>
-            </h2>
-          </div>
-          <p className="max-w-md text-sm leading-relaxed text-[#B6B0A4] md:text-base">
-            NOXES is an umbrella for creator-centric systems. We introduce each product only when it is verified and ready for real builders.
-          </p>
+        <ScrollReveal>
+          <ScrollParallax y={[18, -22]} className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="brand-eyebrow">Studio Portfolio</p>
+              <h2 id="projects-heading" className="brand-display mt-5 text-5xl font-black uppercase tracking-tight text-[#F4F1E9] md:text-7xl">
+                One studio.<br /><span className="text-[#E83708]">Many worlds.</span>
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-relaxed text-[#B6B0A4] md:text-base">
+              NOXES is an umbrella for creator-centric systems. We introduce each product only when it is verified and ready for real builders.
+            </p>
+          </ScrollParallax>
         </ScrollReveal>
 
         <ScrollReveal className="mt-16" delay={100}>
-          <article className="project-feature relative overflow-hidden border border-[#414548] bg-[#181A1D]">
+          <ScrollParallax y={[38, -42]} rotate={[0.35, -0.35]} scale={[0.985, 1]}>
+            <article className="project-feature relative overflow-hidden border border-[#414548] bg-[#181A1D]/92">
             <div className="absolute inset-y-0 right-0 hidden w-[48%] bg-[#202326] lg:block" aria-hidden="true" />
             <div className="relative grid lg:grid-cols-[1fr_0.9fr]">
               <div className="p-7 md:p-12">
@@ -70,18 +74,21 @@ export default function ProjectsMotion() {
                     <span className="map-label map-label-b">shop.lua</span>
                     <span className="map-label map-label-c">checkpoint</span>
                   </div>
-                  <div className="flex items-center justify-between border-t border-[#414548] pt-4 font-mono text-[9px] uppercase tracking-[0.12em] text-[#68665F]"><span>04 resources mapped</span><span>01 staged change</span></div>
+                  <div className="flex items-center justify-between border-t border-[#414548] pt-4 font-mono text-[9px] uppercase tracking-[0.12em] text-[#68665F]"><span>Resources mapped</span><span>Change staged</span></div>
                 </div>
               </div>
             </div>
-          </article>
+            </article>
+          </ScrollParallax>
         </ScrollReveal>
 
         <ScrollReveal className="mt-5" delay={180}>
-          <div className="flex flex-col justify-between gap-6 border border-dashed border-[#414548] bg-[#181A1D]/60 p-7 md:flex-row md:items-center md:p-9">
-            <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#68665F]">Future offerings</p><h3 className="brand-display mt-2 text-2xl font-bold uppercase tracking-tight text-[#F4F1E9]">Authored for what comes next.</h3></div>
-            <p className="max-w-xl text-sm leading-relaxed text-[#B6B0A4]">Future NOXES tools will expand to other creator ecosystems as they take shape. No synthetic claims, just real engineering when ready.</p>
-          </div>
+          <ScrollParallax y={[16, -16]}>
+            <div className="flex flex-col justify-between gap-6 border border-dashed border-[#414548] bg-[#181A1D]/60 p-7 md:flex-row md:items-center md:p-9">
+              <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#68665F]">Future offerings</p><h3 className="brand-display mt-2 text-2xl font-bold uppercase tracking-tight text-[#F4F1E9]">Authored for what comes next.</h3></div>
+              <p className="max-w-xl text-sm leading-relaxed text-[#B6B0A4]">Future NOXES tools will expand to other creator ecosystems as they take shape. No synthetic claims, just real engineering when ready.</p>
+            </div>
+          </ScrollParallax>
         </ScrollReveal>
       </div>
     </section>

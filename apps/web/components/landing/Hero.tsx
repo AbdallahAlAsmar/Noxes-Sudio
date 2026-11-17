@@ -1,17 +1,24 @@
-import { ArrowDownRight, ArrowRight, Check, GitBranch, ScanSearch } from 'lucide-react';
-import SignalField from '@/app/SignalField';
+import { Check, GitBranch, ScanSearch } from 'lucide-react';
+import { ScrollParallax } from './ScrollMotion';
 
 const PROMISES = ['Built for creators. Not consumers.', 'No approval, no file change.', 'Git checkpoint before apply.'];
+const PIPELINE = ['Request', 'Review', 'Checkpoint', 'Apply'];
+
+const DIFF_LINES = [
+  { kind: 'context', number: '18', text: 'local weekendBonus = false' },
+  { kind: 'remove', number: '19', text: 'local discount = 0' },
+  { kind: 'add', number: '19', text: 'local discount = weekendBonus and 0.2 or 0' },
+  { kind: 'add', number: '20', text: '-- staged for your review' },
+] as const;
 
 export default function Hero() {
   return (
     <section id="home" className="brand-hero relative min-h-[760px] overflow-hidden pt-24 md:min-h-[820px]">
       <div aria-hidden="true" className="brand-grid pointer-events-none absolute inset-0" />
-      <SignalField />
       <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-12 h-[34rem] w-[34rem] rounded-full bg-[#E83708]/5 blur-[120px]" />
 
       <div className="relative mx-auto grid min-h-[700px] max-w-7xl items-center gap-16 px-6 py-16 md:px-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10 lg:py-20">
-        <div className="relative z-10 max-w-2xl">
+        <ScrollParallax y={[0, -42]} className="relative z-10 max-w-2xl">
           <p className="brand-eyebrow brand-enter">NOXES Studio · FiveM & Beyond</p>
           <h1 className="brand-display brand-enter brand-enter-delay-1 mt-6 text-[clamp(3.2rem,7.5vw,6.2rem)] font-black leading-[0.92] text-[#F4F1E9]">
             WORLDS IN MOTION.
@@ -24,10 +31,10 @@ export default function Hero() {
 
           <div className="brand-enter brand-enter-delay-3 mt-9 flex flex-wrap gap-3">
             <a href="#projects" className="brand-button-primary">
-              Explore NOXES <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              Explore NOXES <span aria-hidden="true">→</span>
             </a>
             <a href="#demo" className="brand-button-secondary">
-              See how it works <ArrowDownRight aria-hidden="true" className="h-4 w-4" />
+              See how it works <span aria-hidden="true">↘</span>
             </a>
           </div>
 
@@ -41,12 +48,16 @@ export default function Hero() {
               </li>
             ))}
           </ul>
-        </div>
+        </ScrollParallax>
 
-        <div className="brand-stage brand-enter brand-enter-delay-2 mx-auto w-full max-w-2xl lg:ml-auto">
+        <ScrollParallax y={[36, -56]} rotate={[0.4, -0.4]} className="brand-stage mx-auto w-full max-w-2xl lg:ml-auto">
           <div className="brand-stage-orbit" aria-hidden="true" />
 
-          <div className="brand-product-window relative z-[1] overflow-hidden rounded-sm border border-[#414548] bg-[#181A1D]">
+          <div
+            role="img"
+            aria-label="Illustration of the NOXES for FiveM workspace showing a proposed Lua change staged for review"
+            className="brand-product-window relative z-[1] overflow-hidden rounded-sm border border-[#414548] bg-[#181A1D]"
+          >
             <div className="brand-window-bar flex items-center justify-between gap-4 border-b border-[#414548] bg-[#111315] px-5 py-3.5 md:px-6">
               <div className="flex items-center gap-3">
                 <img src="/brand/13_Desktop_App_Icon.png" alt="" aria-hidden="true" className="h-6 w-6" />
@@ -60,20 +71,31 @@ export default function Hero() {
               </span>
             </div>
 
-            <div className="grid min-h-[330px] sm:grid-cols-[145px_1fr]">
-              <aside className="hidden border-r border-[#414548] bg-[#141618] p-4 sm:block" aria-label="Example project navigation">
-                <p className="mb-4 px-2 font-mono text-[9px] uppercase tracking-[0.15em] text-[#68665F]">Workspace</p>
+            <div className="flex items-center justify-between gap-4 border-b border-[#414548] bg-[#202326]/70 px-5 py-2.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68665F] md:px-6">
+              <span>Workspace / Resources / shop</span>
+              <span className="hidden text-[#B6B0A4] sm:inline">Review mode</span>
+            </div>
+
+            <div className="grid min-h-[360px] sm:grid-cols-[150px_1fr]">
+              <aside className="hidden border-r border-[#414548] bg-[#141618] p-4 sm:block">
+                <p className="mb-3 px-2 font-mono text-[9px] uppercase tracking-[0.15em] text-[#68665F]">Workspace</p>
                 <div className="flex items-center gap-2 rounded-sm border border-[#E83708]/30 bg-[#E83708]/10 px-2.5 py-2 text-xs font-medium text-[#F4F1E9]">
                   <ScanSearch aria-hidden="true" className="h-3.5 w-3.5 text-[#E83708]" />
                   Resources
                 </div>
-                <div className="mt-2 flex items-center gap-2 px-2.5 py-2 text-xs text-[#B6B0A4] hover:text-[#F4F1E9]">
+                <div className="mt-1 flex items-center gap-2 px-2.5 py-2 text-xs text-[#B6B0A4]">
                   <GitBranch aria-hidden="true" className="h-3.5 w-3.5 text-[#68665F]" />
                   Checkpoints
                 </div>
+                <div className="mt-5 border-t border-[#414548] pt-4 font-mono text-[10px] leading-relaxed text-[#68665F]">
+                  <p className="px-2">▾ resources</p>
+                  <p className="px-2">　shop</p>
+                  <p className="px-2">　　fxmanifest.lua</p>
+                  <p className="px-2 text-[#B6B0A4]">　　config.lua</p>
+                </div>
               </aside>
 
-              <div className="min-w-0 p-4 md:p-6 bg-[#181A1D]">
+              <div className="min-w-0 bg-[#181A1D] p-4 md:p-6">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#68665F]">Pipeline</p>
@@ -82,16 +104,44 @@ export default function Hero() {
                   <span className="rounded-sm border border-[#414548] bg-[#202326] px-2 py-0.5 font-mono text-[9px] text-[#B6B0A4]">1 file changed</span>
                 </div>
 
+                <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+                  {PIPELINE.map((step, index) => (
+                    <span
+                      key={step}
+                      className={`flex shrink-0 items-center gap-2 rounded-sm border px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] ${
+                        index === 1
+                          ? 'border-[#E83708]/40 bg-[#E83708]/10 text-[#E83708]'
+                          : 'border-[#414548] text-[#68665F]'
+                      }`}
+                    >
+                      <span>0{index + 1}</span>
+                      {step}
+                    </span>
+                  ))}
+                </div>
+
                 <div className="mt-4 overflow-hidden rounded-sm border border-[#414548] bg-[#111315]">
                   <div className="flex items-center justify-between border-b border-[#414548] bg-[#16181A] px-4 py-2">
                     <span className="font-mono text-[10px] text-[#B6B0A4]">resources / shop / config.lua</span>
                     <span className="font-mono text-[9px] text-[#E83708]">+2 &nbsp; <span className="text-[#68665F]">−1</span></span>
                   </div>
-                  <div className="overflow-x-auto px-4 py-3.5 font-mono text-[11px] leading-[2]">
-                    <p className="text-[#68665F]">&nbsp; local weekendBonus = false</p>
-                    <p className="text-[#68665F] line-through">− local discount = 0</p>
-                    <p className="text-[#E83708] bg-[#E83708]/10 px-1 rounded-sm">+ local discount = weekendBonus and 0.2 or 0</p>
-                    <p className="text-[#E83708] bg-[#E83708]/10 px-1 rounded-sm">+ -- staged for your review</p>
+                  <div className="font-mono text-[11px] leading-[2]">
+                    {DIFF_LINES.map((line, index) => (
+                      <div
+                        key={`${line.number}-${index}`}
+                        className={`flex items-center gap-3 px-4 ${
+                          line.kind === 'add'
+                            ? 'bg-[#E83708]/10 text-[#E83708]'
+                            : line.kind === 'remove'
+                              ? 'text-[#68665F] line-through'
+                              : 'text-[#68665F]'
+                        }`}
+                      >
+                        <span className="w-5 shrink-0 text-right text-[#414548]">{line.number}</span>
+                        <span className="w-3 shrink-0">{line.kind === 'add' ? '+' : line.kind === 'remove' ? '−' : ' '}</span>
+                        <span className="truncate">{line.text}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -102,14 +152,16 @@ export default function Hero() {
                       <GitBranch aria-hidden="true" className="h-3 w-3 text-[#E83708]" /> Auto Git checkpoint on apply
                     </p>
                   </div>
-                  <button type="button" className="inline-flex shrink-0 items-center justify-center rounded-sm bg-[#E83708] px-4 py-2 text-xs font-bold text-[#111315] hover:bg-[#d43106]">
+                  <span className="inline-flex shrink-0 items-center justify-center rounded-sm bg-[#E83708] px-4 py-2 text-xs font-bold text-[#111315]">
                     Approve change
-                  </button>
+                  </span>
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-between border-t border-[#414548] bg-[#111315] px-5 py-2.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68665F] md:px-6">
+
+            <div className="flex items-center justify-between gap-3 border-t border-[#414548] bg-[#111315] px-5 py-2.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68665F] md:px-6">
               <span>Human in control</span>
+              <span className="hidden sm:inline">Checkpoint before apply</span>
               <span>Authoring preview</span>
             </div>
           </div>
@@ -123,7 +175,7 @@ export default function Hero() {
               <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-wider text-[#68665F]">Your files · Your call</span>
             </span>
           </div>
-        </div>
+        </ScrollParallax>
       </div>
 
       <div className="brand-section-rule absolute bottom-0 left-0 right-0" aria-hidden="true" />

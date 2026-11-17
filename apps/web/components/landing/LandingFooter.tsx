@@ -4,7 +4,7 @@ const YEAR = new Date().getFullYear();
 
 export default function LandingFooter() {
   return (
-    <footer className="border-t border-[#414548] bg-[#111315]">
+    <footer className="relative z-10 border-t border-[#414548] bg-[#111315]/95">
       <div className="mx-auto grid max-w-7xl gap-9 px-6 py-11 md:grid-cols-[1fr_auto_1fr] md:items-center md:px-12">
         <Link href="/" aria-label="NOXES home" className="inline-flex w-fit rounded-sm focus-visible:outline-none">
           <img
