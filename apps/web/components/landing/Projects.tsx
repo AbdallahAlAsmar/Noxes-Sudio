@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Check, GitBranch, ScanSearch, Plus, Sparkles, X, Terminal, Shield } from 'lucide-react';
+import { ArrowUpRight, Check, GitBranch, ScanSearch, Sparkles, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@clerk/nextjs';
 
@@ -19,70 +19,20 @@ export type NoxesProject = {
   architecture: string[];
 };
 
-export const NOXES_PROJECTS: NoxesProject[] = [
-  {
-    id: 'fivem',
-    name: 'NOXES for FiveM',
-    audience: 'For FiveM server owners',
-    description: 'An AI-assisted workspace for understanding server resources and proposing changes you can review before they are applied.',
-    longDescription: 'NOXES for FiveM connects directly to your server runtime, parsing fxmanifest.lua resources and applying surgical Lua patches with automated git checkpoints and safety validation.',
-    href: '/dashboard',
-    stage: 'Flagship project',
-    highlights: ['Resource-aware assistance', 'Review before apply', 'Git checkpoints'],
-    metrics: [
-      { label: 'Latency', value: '< 40ms' },
-      { label: 'Safety', value: '100% Verified' },
-      { label: 'Runtime', value: 'Node + Lua' },
-    ],
-    architecture: ['Fastify Orchestrator', 'WebSocket Daemon', 'PostgreSQL Audit Log'],
-  },
-  {
-    id: 'nexus',
-    name: 'NOXES Nexus',
-    audience: 'For Studio Architects',
-    description: 'Multi-server orchestrator dashboard unifying distributed game nodes and automated pipeline deployments.',
-    longDescription: 'Unified cluster management for high-availability game infrastructure. Monitor FPS, resource count, player capacity, and agent heartbeat in real-time.',
-    href: '/projects/nexus',
-    stage: 'Beta preview',
-    highlights: ['Multi-node cluster view', 'Instant failover', 'Automated rollbacks'],
-    metrics: [
-      { label: 'Nodes', value: 'Unlimited' },
-      { label: 'Uptime', value: '99.99%' },
-      { label: 'Sync', value: 'Real-time' },
-    ],
-    architecture: ['Distributed Mesh', 'Zero-trust Auth', 'Encrypted State'],
-  },
-];
-
 export default function Projects() {
   const { isSignedIn, isLoaded } = useAuth();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<NoxesProject | null>(null);
-  const [addingModal, setAddingModal] = useState(false);
-  const [newProjectName, setNewProjectName] = useState('');
-  const [projectsList, setProjectsList] = useState<NoxesProject[]>(NOXES_PROJECTS);
+  const [projectsList, setProjectsList] = useState<NoxesProject[]>([]);
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then(r => r.json())
+      .then(data => setProjectsList(data))
+      .catch(() => {});
+  }, []);
 
   if (!isLoaded) return null;
-
-  const handleAddProject = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newProjectName.trim()) return;
-    const newProj = {
-      id: newProjectName.toLowerCase().replace(/\s+/g, '-'),
-      name: newProjectName,
-      audience: 'Custom Creator Ecosystem',
-      description: 'Newly authored workspace initialized for custom resource management and AI assistance.',
-      longDescription: 'Custom ecosystem sandbox with automated agent hooks and secure telemetry streams.',
-      href: '/dashboard',
-      stage: 'Authoring',
-      highlights: ['Custom Runtime', 'Agent Hook', 'Secure Stream'],
-      metrics: [{ label: 'Status', value: 'Active' }, { label: 'Auth', value: 'Clerk JWT' }],
-      architecture: ['Custom Daemon', 'Secure WebSockets'],
-    };
-    setProjectsList([...projectsList, newProj]);
-    setNewProjectName('');
-    setAddingModal(false);
-  };
 
   return (
     <section id="projects" className="border-t border-[#414548] bg-[#111315] py-24 md:py-32 relative overflow-hidden" aria-labelledby="projects-heading">
@@ -95,19 +45,11 @@ export default function Projects() {
             </h2>
           </div>
           <div className="flex items-center gap-4">
-            <p className="max-w-md text-sm leading-relaxed text-[#B6B0A4] md:text-base">
-              NOXES is an umbrella for creator-centric systems. Explore live projects or author a new ecosystem below.
-            </p>
-            {isSignedIn && (
-              <button
-                onClick={() => setAddingModal(true)}
-                className="flex-shrink-0 flex items-center gap-2 rounded-sm bg-[#E83708] px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-[#F4F1E9] transition-all hover:bg-[#d43106]"
-              >
-                <Plus className="w-4 h-4" /> Add Project
-              </button>
-            )}
-          </div>
-        </div>
+                      <p className="max-w-md text-sm leading-relaxed text-[#B6B0A4] md:text-base">
+                        NOXES is an umbrella for creator-centric systems. Explore live projects below.
+                      </p>
+                    </div>
+                  </div>
 
         {/* Cinematic Card Grid */}
         <div className="mt-12 grid gap-6 md:grid-cols-2 group/list">
@@ -166,27 +108,9 @@ export default function Projects() {
                     Inspect Workspace <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                   </span>
                 </div>
-              </motion.article>
-            );
-          })}
+                      </div>
 
-          {isSignedIn && (
-            <div
-              onClick={() => setAddingModal(true)}
-              className="flex min-h-[320px] cursor-pointer flex-col justify-between rounded-sm border border-dashed border-[#414548] bg-[#181A1D]/60 p-7 md:p-9 transition-colors hover:border-[#E83708] hover:bg-[#181A1D]"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-sm border border-[#414548] bg-[#202326] text-xl font-light text-[#E83708]" aria-hidden="true">+</span>
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#68665F]">Future Offerings</p>
-                <h3 className="brand-display mt-2 text-2xl font-bold uppercase tracking-tight text-[#F4F1E9]">Author a new ecosystem.</h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-[#B6B0A4]">
-                  Click to initialize a new project workspace. Seamlessly scaffolded with secure orchestrator hooks and automated checkpoints.
-                </p>
-              </div>
-              <div className="font-mono text-xs text-[#E83708] flex items-center gap-1.5 font-bold">
-                <Plus className="w-3.5 h-3.5" /> Create Project Workspace
-              </div>
-            </div>
+                      {/* Project Details Modal Drawer */}
           )}
         </div>
       </div>
@@ -257,60 +181,7 @@ export default function Projects() {
           </div>
         )}
       </AnimatePresence>
-
-      {/* Add Project Modal */}
-      <AnimatePresence>
-        {addingModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-md rounded-sm border border-[#414548] bg-[#181A1D] p-7 text-[#F4F1E9]"
-            >
-              <button
-                onClick={() => setAddingModal(false)}
-                className="absolute top-5 right-5 text-[#68665F] hover:text-[#F4F1E9]"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <h3 className="brand-display text-2xl font-bold uppercase tracking-tight">Create Project Workspace</h3>
-              <p className="mt-2 text-xs font-mono text-[#68665F]">Initialize a new creator ecosystem in the studio.</p>
-
-              <form onSubmit={handleAddProject} className="mt-6 space-y-4">
-                <div>
-                  <label className="block font-mono text-xs uppercase tracking-wider text-[#B6B0A4] mb-2">Project Name</label>
-                  <input
-                    type="text"
-                    value={newProjectName}
-                    onChange={(e) => setNewProjectName(e.target.value)}
-                    placeholder="e.g. NOXES RP Server Alpha"
-                    className="w-full rounded-sm border border-[#414548] bg-[#202326] px-4 py-3 font-mono text-xs text-[#F4F1E9] focus:border-[#E83708] focus:outline-none"
-                    autoFocus
-                  />
-                </div>
-
-                <div className="flex items-center justify-end gap-3 pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setAddingModal(false)}
-                    className="rounded-sm border border-[#414548] px-4 py-2 font-mono text-xs uppercase tracking-wider text-[#B6B0A4]"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="rounded-sm bg-[#E83708] px-5 py-2 font-mono text-xs uppercase tracking-wider text-[#F4F1E9] hover:bg-[#d43106]"
-                  >
-                    Initialize Project
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </section>
-  );
-}
+          </AnimatePresence>
+              </section>
+            );
+          }
