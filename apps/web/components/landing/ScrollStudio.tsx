@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Check, GitBranch, Search } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const STEPS = [
   { index: '01', title: 'Read', body: 'NOXES scans the resource and maps the files involved.' },
@@ -16,28 +20,40 @@ export default function ScrollStudio() {
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(media.matches);
     const section = sectionRef.current;
-    if (!section) return;
+    if (!section || media.matches) {
+      setStep(STEPS.length - 1);
+      return;
+    }
 
-    const update = () => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        setStep(STEPS.length - 1);
-        return;
-      }
-      const rect = section.getBoundingClientRect();
-      const distance = Math.max(1, section.offsetHeight - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, -rect.top / distance));
-      setStep(Math.min(STEPS.length - 1, Math.floor(progress * STEPS.length)));
-    };
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: '+=180%',
+      scrub: 0.35,
+      onUpdate: (self) => {
+        setStep(Math.min(STEPS.length - 1, Math.floor(self.progress * STEPS.length)));
+      },
+    });
 
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
+    const board = section.querySelector<HTMLElement>('.noxes-process-board');
+    if (board) {
+      gsap.to(board, {
+        yPercent: -3,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.8,
+        },
+      });
+    }
+
+    ScrollTrigger.refresh();
+    return () => trigger.kill();
   }, []);
 
   return (

@@ -5,6 +5,7 @@ import { AgentStatusProvider } from '@/contexts/AgentStatusContext';
 import { NotificationProvider } from '@/components/notifications';
 import { Toaster } from '@/components/ui/sonner';
 import { KeyboardShortcuts } from '@/components/layout/KeyboardShortcuts';
+import SmoothScroll from '@/components/motion/SmoothScroll';
 import './globals.css';
 
 const hasValidClerkConfig =
@@ -84,7 +85,7 @@ export default function RootLayout({
             <ThemeProvider>
               <AgentStatusProvider>
                 <NotificationProvider>
-                  {children}
+                  <SmoothScroll>{children}</SmoothScroll>
                   <KeyboardShortcuts />
                   <Toaster
                     position="bottom-right"

@@ -1,4 +1,5 @@
 import { ArrowDownRight, ArrowUpRight, Check } from 'lucide-react';
+import SplitText from '@/components/react-bits/SplitText';
 import { ScrollParallax } from './ScrollMotion';
 
 const PROMISES = ['Built for creators', 'You review every change', 'Checkpoint before apply'];
@@ -11,10 +12,15 @@ export default function Hero() {
       <div className="relative mx-auto grid min-h-[760px] max-w-[92rem] items-center px-6 py-28 md:min-h-[820px] md:px-12 lg:grid-cols-[minmax(0,0.88fr)_minmax(520px,1.12fr)]">
         <ScrollParallax y={[0, -28]} className="relative z-10 max-w-[42rem] lg:pr-8">
           <p className="noxes-dark-eyebrow">NOXES / Studio for digital worlds</p>
-          <h1 className="brand-display mt-7 text-[clamp(4.25rem,8.2vw,9rem)] font-black leading-[0.82] tracking-[-0.04em] text-[#111315]">
-            Worlds
-            <br />in motion.
-          </h1>
+          <SplitText
+            tag="h1"
+            text="Worlds in motion."
+            splitBy="words"
+            trigger="load"
+            duration={0.8}
+            stagger={0.065}
+            className="brand-display mt-7 block max-w-[12ch] text-[clamp(4.25rem,8.2vw,9rem)] font-black leading-[0.82] tracking-[-0.04em] text-[#111315]"
+          />
 
           <p className="mt-8 max-w-[38rem] text-base leading-[1.7] text-[#383A39] md:text-lg">
             Tools for people who shape systems, servers, and stories — with enough control to keep every decision human.
@@ -41,8 +47,8 @@ export default function Hero() {
           </ul>
         </ScrollParallax>
 
-        <ScrollParallax y={[44, -72]} rotate={[0.15, -0.15]} className="relative mt-12 min-h-[420px] lg:mt-0 lg:min-h-[650px]">
-          <div className="noxes-hero-object absolute inset-0 overflow-hidden rounded-sm border border-[#B6B0A4] bg-[#111315] shadow-[0_32px_100px_rgba(17,19,21,0.24)]">
+        <ScrollParallax y={[44, -72]} rotate={[0.15, -0.15]} className="noxes-hero-motion relative mt-12 min-h-[420px] lg:mt-0 lg:min-h-[650px]">
+          <div data-gsap-hero-object className="noxes-hero-object absolute inset-0 overflow-hidden rounded-sm border border-[#B6B0A4] bg-[#111315] shadow-[0_32px_100px_rgba(17,19,21,0.24)]">
             <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-white/10 bg-[#111315]/88 px-5 py-3 backdrop-blur-md">
               <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#B6B0A4]">NOXES / World engine</span>
               <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#E83708]"><i className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#E83708]" /> Live object</span>
