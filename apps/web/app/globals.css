@@ -480,6 +480,9 @@ a {
 .noxes-input::placeholder { color: #68665F; }
 
 @media (max-width: 1023px) {
+  .noxes-process-grid { grid-template-columns: 1fr; }
+  .noxes-process-copy { position: relative; top: auto; height: auto; }
+  .noxes-process-board { min-height: auto; }
   .brand-product-window { transform: none; }
   .brand-stage-orbit { top: 2%; right: 7%; width: 72%; }
 }
