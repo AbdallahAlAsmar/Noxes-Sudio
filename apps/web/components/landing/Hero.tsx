@@ -1,48 +1,39 @@
-import { Check, GitBranch, ScanSearch } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, Check } from 'lucide-react';
 import { ScrollParallax } from './ScrollMotion';
 
-const PROMISES = ['Built for creators. Not consumers.', 'No approval, no file change.', 'Git checkpoint before apply.'];
-const PIPELINE = ['Request', 'Review', 'Checkpoint', 'Apply'];
-
-const DIFF_LINES = [
-  { kind: 'context', number: '18', text: 'local weekendBonus = false' },
-  { kind: 'remove', number: '19', text: 'local discount = 0' },
-  { kind: 'add', number: '19', text: 'local discount = weekendBonus and 0.2 or 0' },
-  { kind: 'add', number: '20', text: '-- staged for your review' },
-] as const;
+const PROMISES = ['Built for creators', 'You review every change', 'Checkpoint before apply'];
 
 export default function Hero() {
   return (
-    <section id="home" className="brand-hero relative min-h-[760px] overflow-hidden pt-24 md:min-h-[820px]">
-      <div aria-hidden="true" className="brand-grid pointer-events-none absolute inset-0" />
-      <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-12 h-[34rem] w-[34rem] rounded-full bg-[#E83708]/5 blur-[120px]" />
+    <section id="home" className="noxes-hero relative min-h-[760px] overflow-hidden bg-[#E2DCCE] text-[#111315] md:min-h-[820px]">
+      <div aria-hidden="true" className="noxes-hero-grid absolute inset-0 opacity-40" />
 
-      <div className="relative mx-auto grid min-h-[700px] max-w-7xl items-center gap-16 px-6 py-16 md:px-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10 lg:py-20">
-        <ScrollParallax y={[0, -42]} className="relative z-10 max-w-2xl">
-          <p className="brand-eyebrow brand-enter">NOXES Studio · FiveM & Beyond</p>
-          <h1 className="brand-display brand-enter brand-enter-delay-1 mt-6 text-[clamp(3.2rem,7.5vw,6.2rem)] font-black leading-[0.92] text-[#F4F1E9]">
-            WORLDS IN MOTION.
-            <br />
-            <span className="text-[#E83708]">CLARITY IS AUTHORED.</span>
+      <div className="relative mx-auto grid min-h-[760px] max-w-[92rem] items-center px-6 py-28 md:min-h-[820px] md:px-12 lg:grid-cols-[minmax(0,0.88fr)_minmax(520px,1.12fr)]">
+        <ScrollParallax y={[0, -28]} className="relative z-10 max-w-[42rem] lg:pr-8">
+          <p className="noxes-dark-eyebrow">NOXES / Studio for digital worlds</p>
+          <h1 className="brand-display mt-7 text-[clamp(4.25rem,8.2vw,9rem)] font-black leading-[0.82] tracking-[-0.04em] text-[#111315]">
+            Worlds
+            <br />in motion.
           </h1>
-          <p className="brand-enter brand-enter-delay-2 mt-7 max-w-xl text-base leading-relaxed text-[#B6B0A4] md:text-lg">
-            NOXES makes tools for people who shape digital worlds. Built for creators. Not consumers. First up: NOXES for FiveM — a calmer, reviewable way to build and run servers.
+
+          <p className="mt-8 max-w-[38rem] text-base leading-[1.7] text-[#383A39] md:text-lg">
+            Tools for people who shape systems, servers, and stories — with enough control to keep every decision human.
           </p>
 
-          <div className="brand-enter brand-enter-delay-3 mt-9 flex flex-wrap gap-3">
-            <a href="#projects" className="brand-button-primary">
-              Explore NOXES <span aria-hidden="true">→</span>
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <a href="#projects" className="noxes-dark-button-primary">
+              Explore NOXES <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </a>
-            <a href="#demo" className="brand-button-secondary">
-              See how it works <span aria-hidden="true">↘</span>
+            <a href="#demo" className="noxes-dark-button-secondary">
+              See the process <ArrowDownRight aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>
 
-          <ul className="mt-12 flex flex-wrap gap-x-6 gap-y-3 text-xs md:text-sm text-[#B6B0A4]" aria-label="NOXES principles">
+          <ul className="mt-10 grid gap-3 border-t border-[#B6B0A4] pt-5 sm:grid-cols-3" aria-label="NOXES principles">
             {PROMISES.map((promise) => (
-              <li key={promise} className="flex items-center gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-sm bg-[#E83708]/15 text-[#E83708]">
-                  <Check aria-hidden="true" className="h-3 w-3" strokeWidth={3} />
+              <li key={promise} className="flex items-center gap-2 text-xs font-medium text-[#68665F]">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-[#E83708] text-[#E83708]">
+                  <Check aria-hidden="true" className="h-3 w-3" strokeWidth={2.5} />
                 </span>
                 {promise}
               </li>
@@ -50,135 +41,40 @@ export default function Hero() {
           </ul>
         </ScrollParallax>
 
-        <ScrollParallax y={[36, -56]} rotate={[0.4, -0.4]} className="brand-stage mx-auto w-full max-w-2xl lg:ml-auto">
-          <div className="brand-stage-orbit" aria-hidden="true" />
-
-          <div
-            role="img"
-            aria-label="Illustration of the NOXES for FiveM workspace showing a proposed Lua change staged for review"
-            className="brand-product-window relative z-[1] overflow-hidden rounded-sm border border-[#414548] bg-[#181A1D]"
-          >
-            <div className="brand-window-bar flex items-center justify-between gap-4 border-b border-[#414548] bg-[#111315] px-5 py-3.5 md:px-6">
-              <div className="flex items-center gap-3">
-                <img src="/brand/13_Desktop_App_Icon.png" alt="" aria-hidden="true" className="h-6 w-6" />
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#68665F]">NOXES for FiveM</p>
-                  <p className="text-xs font-semibold text-[#F4F1E9]">Authoring Pipeline</p>
-                </div>
-              </div>
-              <span className="rounded-sm border border-[#E83708]/40 bg-[#E83708]/10 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-[#E83708]">
-                Staged · Review first
-              </span>
+        <ScrollParallax y={[44, -72]} rotate={[0.15, -0.15]} className="relative mt-12 min-h-[420px] lg:mt-0 lg:min-h-[650px]">
+          <div className="noxes-hero-object absolute inset-0 overflow-hidden rounded-sm border border-[#B6B0A4] bg-[#111315] shadow-[0_32px_100px_rgba(17,19,21,0.24)]">
+            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-white/10 bg-[#111315]/88 px-5 py-3 backdrop-blur-md">
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#B6B0A4]">NOXES / World engine</span>
+              <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#E83708]"><i className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#E83708]" /> Live object</span>
             </div>
 
-            <div className="flex items-center justify-between gap-4 border-b border-[#414548] bg-[#202326]/70 px-5 py-2.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68665F] md:px-6">
-              <span>Workspace / Resources / shop</span>
-              <span className="hidden text-[#B6B0A4] sm:inline">Review mode</span>
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src="/brand/01_Website_Hero.png"
+                alt="NOXES world in motion campaign artwork"
+                className="h-full w-full object-cover object-[62%_50%] opacity-[0.82]"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,19,21,0.08),rgba(17,19,21,0.72)_78%,rgba(17,19,21,0.96))]" />
             </div>
 
-            <div className="grid min-h-[360px] sm:grid-cols-[150px_1fr]">
-              <aside className="hidden border-r border-[#414548] bg-[#141618] p-4 sm:block">
-                <p className="mb-3 px-2 font-mono text-[9px] uppercase tracking-[0.15em] text-[#68665F]">Workspace</p>
-                <div className="flex items-center gap-2 rounded-sm border border-[#E83708]/30 bg-[#E83708]/10 px-2.5 py-2 text-xs font-medium text-[#F4F1E9]">
-                  <ScanSearch aria-hidden="true" className="h-3.5 w-3.5 text-[#E83708]" />
-                  Resources
-                </div>
-                <div className="mt-1 flex items-center gap-2 px-2.5 py-2 text-xs text-[#B6B0A4]">
-                  <GitBranch aria-hidden="true" className="h-3.5 w-3.5 text-[#68665F]" />
-                  Checkpoints
-                </div>
-                <div className="mt-5 border-t border-[#414548] pt-4 font-mono text-[10px] leading-relaxed text-[#68665F]">
-                  <p className="px-2">▾ resources</p>
-                  <p className="px-2">　shop</p>
-                  <p className="px-2">　　fxmanifest.lua</p>
-                  <p className="px-2 text-[#B6B0A4]">　　config.lua</p>
-                </div>
-              </aside>
-
-              <div className="min-w-0 bg-[#181A1D] p-4 md:p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#68665F]">Pipeline</p>
-                    <h2 className="mt-0.5 text-sm font-semibold text-[#F4F1E9]">Review proposed changes</h2>
-                  </div>
-                  <span className="rounded-sm border border-[#414548] bg-[#202326] px-2 py-0.5 font-mono text-[9px] text-[#B6B0A4]">1 file changed</span>
-                </div>
-
-                <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
-                  {PIPELINE.map((step, index) => (
-                    <span
-                      key={step}
-                      className={`flex shrink-0 items-center gap-2 rounded-sm border px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] ${
-                        index === 1
-                          ? 'border-[#E83708]/40 bg-[#E83708]/10 text-[#E83708]'
-                          : 'border-[#414548] text-[#68665F]'
-                      }`}
-                    >
-                      <span>0{index + 1}</span>
-                      {step}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-4 overflow-hidden rounded-sm border border-[#414548] bg-[#111315]">
-                  <div className="flex items-center justify-between border-b border-[#414548] bg-[#16181A] px-4 py-2">
-                    <span className="font-mono text-[10px] text-[#B6B0A4]">resources / shop / config.lua</span>
-                    <span className="font-mono text-[9px] text-[#E83708]">+2 &nbsp; <span className="text-[#68665F]">−1</span></span>
-                  </div>
-                  <div className="font-mono text-[11px] leading-[2]">
-                    {DIFF_LINES.map((line, index) => (
-                      <div
-                        key={`${line.number}-${index}`}
-                        className={`flex items-center gap-3 px-4 ${
-                          line.kind === 'add'
-                            ? 'bg-[#E83708]/10 text-[#E83708]'
-                            : line.kind === 'remove'
-                              ? 'text-[#68665F] line-through'
-                              : 'text-[#68665F]'
-                        }`}
-                      >
-                        <span className="w-5 shrink-0 text-right text-[#414548]">{line.number}</span>
-                        <span className="w-3 shrink-0">{line.kind === 'add' ? '+' : line.kind === 'remove' ? '−' : ' '}</span>
-                        <span className="truncate">{line.text}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-4 flex flex-col gap-3 rounded-sm border border-[#414548] bg-[#202326] p-3.5 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-xs font-semibold text-[#F4F1E9]">Nothing changes until you approve.</p>
-                    <p className="mt-0.5 flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.09em] text-[#68665F]">
-                      <GitBranch aria-hidden="true" className="h-3 w-3 text-[#E83708]" /> Auto Git checkpoint on apply
-                    </p>
-                  </div>
-                  <span className="inline-flex shrink-0 items-center justify-center rounded-sm bg-[#E83708] px-4 py-2 text-xs font-bold text-[#111315]">
-                    Approve change
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-3 border-t border-[#414548] bg-[#111315] px-5 py-2.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68665F] md:px-6">
-              <span>Human in control</span>
-              <span className="hidden sm:inline">Checkpoint before apply</span>
-              <span>Authoring preview</span>
+            <div className="absolute bottom-5 left-5 right-5 z-10 grid grid-cols-3 border-t border-white/10 pt-4 font-mono text-[8px] uppercase tracking-[0.14em] text-[#B6B0A4] md:text-[9px]">
+              <span>01 / Shape</span>
+              <span className="text-center text-[#F4F1E9]">World in motion</span>
+              <span className="text-right text-[#E83708]">Scroll linked</span>
             </div>
           </div>
 
-          <div className="absolute -bottom-5 -left-4 hidden items-center gap-3 rounded-sm border border-[#414548] bg-[#202326] p-3.5 shadow-2xl backdrop-blur md:flex">
-            <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-[#E83708]/15 text-[#E83708]">
-              <GitBranch aria-hidden="true" className="h-4 w-4" />
-            </span>
+          <div className="noxes-hero-float absolute -bottom-4 -left-3 z-20 hidden items-center gap-3 border border-[#B6B0A4] bg-[#F4F1E9] p-3.5 shadow-[0_20px_50px_rgba(17,19,21,0.18)] md:flex">
+            <span className="h-9 w-9 rounded-sm bg-[#E83708]" aria-hidden="true" />
             <span>
-              <span className="block text-xs font-semibold text-[#F4F1E9]">Reviewable by design</span>
-              <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-wider text-[#68665F]">Your files · Your call</span>
+              <span className="block text-xs font-semibold text-[#111315]">Built to move with you</span>
+              <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.12em] text-[#68665F]">Studio object / 01</span>
             </span>
           </div>
         </ScrollParallax>
       </div>
 
-      <div className="brand-section-rule absolute bottom-0 left-0 right-0" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#B6B0A4]" aria-hidden="true" />
     </section>
   );
 }

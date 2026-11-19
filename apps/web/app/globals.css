@@ -247,6 +247,77 @@ a {
   transform: translateY(0);
 }
 
+.noxes-hero-grid {
+  background-image:
+    linear-gradient(rgba(104, 102, 95, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(104, 102, 95, 0.12) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+}
+
+.noxes-dark-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #68665F;
+  font: 600 11px/1 var(--noxes-font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.noxes-dark-eyebrow::before {
+  width: 32px;
+  height: 2px;
+  background: #E83708;
+  content: '';
+}
+
+.noxes-dark-button-primary,
+.noxes-dark-button-secondary {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.noxes-dark-button-primary {
+  border: 1px solid #E83708;
+  background: #E83708;
+  color: #111315;
+}
+
+.noxes-dark-button-primary:hover {
+  background: #D43106;
+  transform: translateY(-1px);
+}
+
+.noxes-dark-button-secondary {
+  border: 1px solid #68665F;
+  background: #F4F1E9;
+  color: #111315;
+}
+
+.noxes-dark-button-secondary:hover {
+  border-color: #111315;
+  transform: translateY(-1px);
+}
+
+.noxes-hero-object {
+  min-height: 420px;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+}
+
+.noxes-hero-float {
+  border-radius: 4px;
+}
+
 .brand-stage {
   position: relative;
   isolation: isolate;
